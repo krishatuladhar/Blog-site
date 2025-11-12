@@ -14,7 +14,7 @@ const HeroSection: React.FC = () => {
         </Link>
       </div>
 
-      <div className="bg-[url('./assets/bg-image.jpg')] bg-contain bg-center bg-no-repeat h-190 w-full relative m-3">
+      <div className="bg-[url('./assets/bg-image.jpg')] bg-contain bg-center bg-no-repeat h-190 w-full relative">
         <div className="text-white  absolute bottom-20 left-50 w-full">
           <span className="text-[14px] bg-[#4B6BFB] rounded-md p-2 ">
             Technology
