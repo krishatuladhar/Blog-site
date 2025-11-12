@@ -2,9 +2,9 @@ import LogoImage from "../assets/logo.png";
 import { Link } from "react-router-dom";
 import { FaSearch } from "react-icons/fa";
 
-const Navbar: React.FC = () => {
+const Navbar = () => {
   return (
-    <div className="flex justify-around items-center">
+    <div className="flex justify-around items-center relative">
       <div className="m-10 p-5">
         <img src={LogoImage} alt="Logo Image" />
         <span>Meta Blog</span>
@@ -22,9 +22,9 @@ const Navbar: React.FC = () => {
         <input
           type="text"
           placeholder="Search"
-          className="border-2 rounded-2xl p-1 relative"
+          className="border-2 rounded-2xl p-1 "
         />
-        <FaSearch className="absolute bg- lack-400 right-15 top-25" />
+        <FaSearch className="absolute right-35 top-25" />
       </div>
     </div>
   );

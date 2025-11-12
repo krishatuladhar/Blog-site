@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import personImage from "../assets/person.png";
 
-const HeroSection: React.FC = () => {
+const HeroSection = () => {
   return (
     <div>
-      <div className="flex-col text-center ">
+      <div className="flex-col text-center">
         <h1 className="text-center text-3xl font-bold">Page Title</h1>
         <Link to="/">Home</Link>
 
@@ -14,7 +14,7 @@ const HeroSection: React.FC = () => {
         </Link>
       </div>
 
-      <div className="bg-[url('./assets/bg-image.jpg')] bg-contain bg-center bg-no-repeat h-190 w-full relative">
+      <div className="bg-[url('./assets/bg-image.jpg')] bg-contain bg-center bg-no-repeat h-190 w-full m-0! p-0 relative">
         <div className="text-white  absolute bottom-20 left-50 w-full">
           <span className="text-[14px] bg-[#4B6BFB] rounded-md p-2 ">
             Technology

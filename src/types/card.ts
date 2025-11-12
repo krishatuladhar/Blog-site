@@ -1,5 +1,9 @@
+import type { AuthorType } from "./author";
+
 export interface CardType{
   image: string;
-  aname: string;
-  cardimage: string;
+  title: string;
+  text: string;
+  date: string;
+  author: AuthorType
 }
