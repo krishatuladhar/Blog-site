@@ -1,5 +1,4 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+
 import HeroSection from "../components/HeroSection";
 import type { CardType } from "../types/card";
 import aimage1 from "../assets/cards/image1.png";
@@ -114,10 +113,8 @@ const Home = () => {
   ];
   return (
     <div>
-      <Navbar />
       <HeroSection />
       <BlogList cards={cards} />
-      <Footer/>
     </div>
   );
 };
