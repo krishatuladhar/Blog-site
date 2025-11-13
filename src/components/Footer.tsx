@@ -58,7 +58,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-gray-500 flex justify-around">
+      <div className="border-t border-gray-400 flex justify-around m-3">
         <div className="flex m-5">
           <img src={FooterImage} alt="Footer Image" className="h-12 w-12" />
           <div className="flex flex-col m-2">
@@ -68,14 +68,17 @@ const Footer = () => {
             <span>© JS Template 2023. All Rights Reserved.</span>
           </div>
         </div>
-        <div className=" flex gap-12 mt-5 p-2">
-          <Link to="/terms" className="borde p-1 m-2 ">
+        <div className=" flex gap-10 mt-2 p-10">
+          <Link to="/terms" className="border-r border-gray-400 pr-5 ">
             Terms of Use
           </Link>
-          <Link to="/privacy-policies" className="border-r m-2 p-2">
+          <Link
+            to="/privacy-policies"
+            className="border-r border-gray-400  pr-5 "
+          >
             Privacy Policy
           </Link>
-          <Link to="/cookie-policy" className="border-r m-2 p-2">
+          <Link to="/cookie-policy" className="border-r border-gray-400  pr-5 ">
             Cookie Policy
           </Link>
         </div>
