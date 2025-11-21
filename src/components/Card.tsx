@@ -1,29 +1,33 @@
 import type { CardType } from "../types/card";
 
-interface IProps {
+interface CardProps {
   blog: CardType;
 }
 
-const Card = ({ blog }: IProps) => {
+const Card = ({ blog }: CardProps) => {
   return (
-    <div className="flex-col m-10 border border-gray-100 p-2 rounded-2xl gap-2">
-      <img src={blog.image} alt="name" />
-      <div className="text-white mt-4">
-        <span className="text-[14px] bg-[#4B6BFB] rounded-md p-2 ">
-          {blog.title}
+    <section className="flex-col m-5 border border-gray-100 p-4 rounded-2xl gap-2">
+      <div>
+        <img src={blog.image} alt="name" />
+      </div>
+
+      <div className="text-white mt-4 w-full gap-4 flex flex-col">
+        <span className="text-[14px] text-[#4B6BFB] font-medium font-sans bg-[#4B6BFB0D] rounded-md p-2 w-30">
+          Technology
         </span>
 
-        <h1 className="font-medium font-sans text-[24px] mt-4 text text-black h-50">
+        <h1 className="font-semibold text-2xl text-md/7 text text-black">
           {blog.text}
         </h1>
-        <div className="flex justify-around items-start gap-5 text-black m-1 w=[332px] mt-2">
+        <div className="flex justify-between items-start font-medium text-[#97989F] gap-5 text-md/6 text-[16px]">
           <img src={blog.author?.aimage} alt="Person Image" className="w-9" />
           <span className="w-full">{blog.author?.aname}</span>
           <span className="w-full ">{blog.date}</span>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
+
 
 export default Card;
