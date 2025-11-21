@@ -4,7 +4,7 @@ type TextInputProps = {
   label: string;
   type?: string;
   placeholder?: string;
-  register: UseFormRegisterReturn;
+  register: UseFormRegisterReturn; 
   error?: FieldError;
 };
 

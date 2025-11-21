@@ -1,17 +1,25 @@
 import LogoImage from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../providers/AuthProvider";
 import { FaUser } from "react-icons/fa";
 import { useState } from "react";
 import dropDownImage from "../assets/authors/author1.png";
 const Navbar = () => {
-  const { user } = useAuth();
+  const { setUser, user } = useAuth();
   const isAuthor = user?.role === "author";
   const [ShowDropDown, setShowDropDown] = useState(false);
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userId");
+    setUser(null);
+    setShowDropDown(false);
+    navigate("/login");
+  };
 
   return (
     <header>
-      <nav className="xl:flex justify-between items-center p-5 m-0">
+      <nav className="xl:flex justify-between items-center p-5 m-1">
         <div className="p-4">
           <img src={LogoImage} alt="Logo Image" />
           <span>Meta Blog</span>
@@ -24,10 +32,14 @@ const Navbar = () => {
           {!user && <Link to="/login">Login</Link>}
 
           {user && (
-            <div className="relative">
-              {isAuthor && <Link to="/add-post">Add Post</Link>}
+            <div className="relative flex flex-row gap-2">
+              {isAuthor && (
+                <button className="bg-blue-50">
+                  <Link to="/add-post">Add Post</Link>
+                </button>
+              )}
               <FaUser
-                className="cursor-pointer"
+                className="cursor-pointer m-1"
                 onClick={() => setShowDropDown(!ShowDropDown)}
               />
               {ShowDropDown && (
@@ -40,27 +52,20 @@ const Navbar = () => {
                       className="h-12 w-12 rounded-full object-cover"
                     />
                     <div className="flex flex-col truncate">
-                      <span
-                        className="font-semibold truncate"
-                        title="Krisha Tuladhar"
-                      >
-                        Krisha Tuladhar
+                      <span className="font-semibold truncate">
+                        {user?.name}
                       </span>
-                      <span
-                        className="text-sm text-gray-600 truncate"
-                        title="krishatuladhar@gmail.com"
-                      >
-                        krishatuladhar@gmail.com
+                      <span className="text-sm text-gray-600 truncate">
+                        {user?.email}
                       </span>
                     </div>
                   </div>
 
-                  {/* Logout button */}
                   <div className="mt-3 border-t pt-2">
                     <Link
-                      to="/logout"
+                      to="/login"
                       className="block w-full text-center bg-red-500 hover:bg-red-600 text-white py-2 rounded"
-                      onClick={() => setShowDropDown(false)}
+                      onClick={handleLogout}
                     >
                       Logout
                     </Link>

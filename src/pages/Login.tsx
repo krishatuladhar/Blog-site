@@ -1,9 +1,10 @@
 import { useForm } from "react-hook-form";
 import TextInput from "../components/TextInput";
-
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-
+import { useAuth } from "../providers/AuthProvider";
 const loginSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email"),
   password: z.string().min(1, "Password is required"),
@@ -12,16 +13,52 @@ const loginSchema = z.object({
 type LoginInput = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const navigate = useNavigate();
+  const { setUser, setIsAuthenticated } = useAuth();
+
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<LoginInput>({
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async () => {
-    console.log("login data");
+  const onSubmit = async (data: LoginInput) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:5501/api/auth/login",
+        data
+      );
+
+      const { token, user }  = res.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("userId", user.id.toString());
+      setUser(user);
+      setIsAuthenticated(true);
+      navigate("/");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError("email", {
+          type: "manual",
+          message: error.response?.data?.message || "Invalid credentials",
+        });
+        setError("password", {
+          type: "manual",
+          message: error.response?.data?.message || "Invalid credentials",
+        });
+      } else {
+        setError("email", {
+          type: "manual",
+          message: "Invalid credentials",
+        });
+        setError("password", {
+          type: "manual",
+          message: "Invalid credentials",
+        });
+      }
+    }
   };
 
   return (

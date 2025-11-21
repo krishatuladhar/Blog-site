@@ -1,28 +1,44 @@
 import { useForm } from "react-hook-form";
 import TextInput from "../components/TextInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
-
+import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { validationSchema } from "../validations/formValidationSchema";
 
 type RegisterInput = z.infer<typeof validationSchema>;
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
+    setError,
     formState: { errors },
   } = useForm<RegisterInput>({
     resolver: zodResolver(validationSchema),
   });
 
-  const onSubmit = async () => {
-    console.log("register data");
+  const onSubmit = async (data: RegisterInput) => {
+    try {
+      await axios.post("http://localhost:5501/api/auth", data);
+      navigate("/login");
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        setError("email", {
+          type: "manual",
+          message: error.response?.data?.message || "Email already exists",
+        });
+      } else {
+        setError("email", {
+          type: "manual",
+          message: "Email already exists",
+        });
+      }
+    }
   };
-
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-5 m-auto text-gray-800 w-[50%] border border-gray-200 rounded-2xl mt-0">
+    <div className="flex flex-col items-center justify-center gap-4 p-5 m-auto text-gray-800 w-[70%] border border-gray-200 rounded-2xl mt-0">
       <p className="text-ascent-1 text-base font-semibold">
         Create your account
       </p>
