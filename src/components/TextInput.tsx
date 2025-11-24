@@ -1,11 +1,11 @@
-import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type { FieldError, UseFormRegisterReturn , Merge} from "react-hook-form";
 
 type TextInputProps = {
   label: string;
   type?: string;
   placeholder?: string;
   register: UseFormRegisterReturn; 
-  error?: FieldError;
+  error?: FieldError| Merge<FieldError, any> ;
 };
 
 export default function TextInput({
@@ -23,7 +23,7 @@ export default function TextInput({
         type={type}
         placeholder={placeholder}
         className={`w-full px-3 py-2 border border-gray-800  ${
-          error ? "border-red-500" : "border-gray-300"
+          error ? "border-red-500" : "border-gray-500"
         }`}
         {...register}
       />

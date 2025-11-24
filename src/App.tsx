@@ -4,6 +4,7 @@ import SinglePost from "./pages/SinglePost";
 import RootLayout from "./pages/RootLayout";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import AddPost from "./pages/AddPost";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -12,7 +13,10 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/single-post/:id", element: <SinglePost /> },
       { path:'/register', element: <Register />},
-     { path:'/login' , element: <Login />},
+      { path: '/login', element: <Login /> },
+      { path: '/add-post', element: <AddPost /> },
+      { path: '/blog', element: <Home /> }
+     
     ],
   },
 ]);

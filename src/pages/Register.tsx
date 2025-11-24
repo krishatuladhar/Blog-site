@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { validationSchema } from "../validations/formValidationSchema";
+import { registerSchema } from "../validations/formValidationSchema";
 
-type RegisterInput = z.infer<typeof validationSchema>;
+type RegisterInput = z.infer<typeof registerSchema>;
 
-export default function RegisterForm() {
+const RegisterForm = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -16,7 +16,7 @@ export default function RegisterForm() {
     setError,
     formState: { errors },
   } = useForm<RegisterInput>({
-    resolver: zodResolver(validationSchema),
+    resolver: zodResolver(registerSchema),
   });
 
   const onSubmit = async (data: RegisterInput) => {
@@ -87,4 +87,5 @@ export default function RegisterForm() {
       </form>
     </div>
   );
-}
+};
+export default RegisterForm;

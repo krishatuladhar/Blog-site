@@ -5,14 +5,11 @@ import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../providers/AuthProvider";
-const loginSchema = z.object({
-  email: z.string().min(1, "Email is required").email("Invalid email"),
-  password: z.string().min(1, "Password is required"),
-});
+import { loginSchema } from "../validations/formValidationSchema";
 
 type LoginInput = z.infer<typeof loginSchema>;
 
-export default function LoginForm() {
+const LoginForm = () => {
   const navigate = useNavigate();
   const { setUser, setIsAuthenticated } = useAuth();
 
@@ -32,10 +29,11 @@ export default function LoginForm() {
         data
       );
 
-      const { token, user }  = res.data;
+      const { token, user } = res.data;
       localStorage.setItem("token", token);
       localStorage.setItem("userId", user.id.toString());
       setUser(user);
+      console.log(user)
       setIsAuthenticated(true);
       navigate("/");
     } catch (error: unknown) {
@@ -100,4 +98,6 @@ export default function LoginForm() {
       </form>
     </div>
   );
-}
+};
+
+export default LoginForm;
