@@ -1,11 +1,14 @@
 import { useForm } from "react-hook-form";
 import TextInput from "../components/TextInput";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../providers/AuthProvider";
 import { loginSchema } from "../validations/formValidationSchema";
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import api from "../utils/api";
+import axios from "axios";
 
 type LoginInput = z.infer<typeof loginSchema>;
 
@@ -22,80 +25,83 @@ const LoginForm = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginInput) => {
-    try {
-      const res = await axios.post(
-        "http://localhost:5501/api/auth/login",
-        data
-      );
-
+  const { mutate, isPending } = useMutation({
+    mutationFn: (data: LoginInput) => api.post("/auth/login", data),
+    onSuccess: (res) => {
       const { token, user } = res.data;
+
+      // Store token locally
       localStorage.setItem("token", token);
       localStorage.setItem("userId", user.id.toString());
+
+      // Update context
       setUser(user);
-      console.log(user)
       setIsAuthenticated(true);
+
+      // Navigate home
       navigate("/");
-    } catch (error: unknown) {
-      if (axios.isAxiosError(error)) {
-        setError("email", {
-          type: "manual",
-          message: error.response?.data?.message || "Invalid credentials",
-        });
-        setError("password", {
-          type: "manual",
-          message: error.response?.data?.message || "Invalid credentials",
-        });
-      } else {
-        setError("email", {
-          type: "manual",
-          message: "Invalid credentials",
-        });
-        setError("password", {
-          type: "manual",
-          message: "Invalid credentials",
-        });
+    },
+    onError: (err: unknown) => {
+      let message = "Invalid credentials";
+
+      if (axios.isAxiosError(err)) {
+        message = err.response?.data?.message || message;
       }
-    }
+
+      setError("root", { type: "manual", message });
+    },
+  });
+
+  const onSubmit = (data: LoginInput) => {
+    mutate(data);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 p-5 m-auto text-gray-800 w-[50%] border border-gray-200 rounded-2xl mt-0">
-      <p className="text-ascent-1 text-base font-semibold">Login</p>
-      <span className="text-sm mt-2 text-ascent-2">Enter your credentials</span>
-
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="space-y-2 py-1 flex flex-col gap-1"
-      >
-        <TextInput
-          label="Email"
-          type="email"
-          register={register("email")}
-          error={errors.email}
-        />
-
-        <TextInput
-          label="Password"
-          type="password"
-          register={register("password")}
-          error={errors.password}
-        />
-
-        <button className="w-full bg-blue-600 text-white p-2 rounded">
-          Login
-        </button>
-
-        <p className="text-ascent-2 text-sm text-center">
-          Don't have an account?
-          <Link
-            to="/register"
-            className="text-[#065ad8] font-semibold ml-2 cursor-pointer"
+    <div className="">
+      <div className="flex flex-col items-center justify-center gap-4 p-15 m-auto text-gray-800 w-[40%] rounded-2xl">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-4 w-full"
+          noValidate
+        >
+          <div
+            className={`${
+              errors.root ? "visible" : "invisible"
+            } bg-red-100 text-red-700 border border-red-300 p-2 rounded text-sm`}
           >
-            Register
-          </Link>
-        </p>
-      </form>
+            {errors.root ? errors.root.message : "Error here"}
+          </div>
+          <TextInput
+            label="Email"
+            type="email"
+            register={register("email")}
+            error={errors.email}
+          />
+          <TextInput
+            label="Password"
+            type="password"
+            register={register("password")}
+            error={errors.password}
+          />
+          <button
+            type="submit"
+            disabled={isPending}
+            className="flex items-center justify-center gap-2 bg-blue-500 p-5  text-center text-white"
+          >
+            Login
+            {isPending && <span className="animate-pulse">...</span>}
+          </button>
+          <p className="text-ascent-2 text-sm text-center">
+            Don't have an account?
+            <Link
+              to="/register"
+              className="text-[#065ad8] font-semibold ml-2 hover:underline"
+            >
+              Register
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 };
