@@ -1,9 +1,12 @@
-import type { AuthorType } from "./author";
-
 export type CardType = {
-  cardId: number;
+  id: number;
+  slug: string;
+  category: string;
+  title: string;
+  description: string;
   image: string;
-  text: string;
+  author_name: string;
+  author_profile: string;
   date: string;
-  author: AuthorType;
+  isFeatured: boolean;
 };

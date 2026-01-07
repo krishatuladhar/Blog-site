@@ -1,11 +1,13 @@
-import type { FieldError, UseFormRegisterReturn , Merge} from "react-hook-form";
+import type { FieldError, UseFormRegisterReturn, Merge } from "react-hook-form";
 
 type TextInputProps = {
   label: string;
   type?: string;
   placeholder?: string;
-  register: UseFormRegisterReturn; 
-  error?: FieldError| Merge<FieldError, any> ;
+  register?: UseFormRegisterReturn;
+  error?: FieldError | Merge<FieldError, any>;
+  accept?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 export default function TextInput({
@@ -14,6 +16,8 @@ export default function TextInput({
   placeholder = "",
   register,
   error,
+  accept,
+  onChange,
 }: TextInputProps) {
   return (
     <div className="mb-4 bg">
@@ -22,10 +26,12 @@ export default function TextInput({
       <input
         type={type}
         placeholder={placeholder}
-        className={`w-full px-3 py-2 border border-gray-800  ${
+        accept={accept}
+        {...(register ?? {})}
+        onChange={onChange}
+        className={`w-full px-3 py-2 border border-gray-800 outline-none  ${
           error ? "border-red-500" : "border-gray-500"
         }`}
-        {...register}
       />
 
       {error && <p className="text-red-500 text-sm mt-1">{error.message}</p>}

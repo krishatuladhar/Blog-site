@@ -1,127 +1,80 @@
 import HeroSection from "../components/HeroSection";
-import type { CardType } from "../types/card";
-import aimage1 from "../assets/cards/image1.png";
-import aimage2 from "../assets/cards/image2.png";
-import aimage3 from "../assets/cards/image3.png";
-import aimage4 from "../assets/cards/image4.png";
-import aimage5 from "../assets/cards/image5.png";
-import aimage6 from "../assets/cards/image6.png";
-import aimage7 from "../assets/cards/image7.png";
-import aimage8 from "../assets/cards/image8.png";
-import aimage9 from "../assets/cards/image9.png";
-import AuthorImage1 from "../assets/authors/author1.png";
-import AuthorImage2 from "../assets/authors/author2.png";
-import AuthorImage3 from "../assets/authors/author3.png";
-import AuthorImage4 from "../assets/authors/author4.png";
-import AuthorImage5 from "../assets/authors/author5.png";
 import BlogList from "../components/BlogList";
+import { useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import type { CardType } from "../types/card";
+import axios from "axios";
 
 const Home = () => {
-  const cards: CardType[] = [
-    {
-      cardId: 1,
-      image: aimage1,
-      author: {
-        aname: "Tracey Wilson",
-        aimage: AuthorImage1,
-      },
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const search = queryParams.get("search") || "";
 
-      text: "Enhanced and Expedited Communication: How Technology is Changing ",
-      date: "2010/01/05",
-    },
-    {
-      cardId: 2,
-      image: aimage2,
-      author: {
-        aname: "Jason Francisco",
-        aimage: AuthorImage2,
-      },
+  const [cards, setCards] = useState<CardType[]>([]);
+  const [page, setPage] = useState(1);
+  const [totalPage, setTotalPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-      text: "Enabled Remote and HybrcardId Work: How Technology is Changing ",
-      date: "2080/01/05",
-    },
-    {
-      cardId: 3,
-      image: aimage3,
-      author: {
-        aname: "Elizabeth Slavin",
-        aimage: AuthorImage3,
-      },
+  // Fetch blogs from API
+  const fetchBlogs = async (pageNumber: number) => {
+    try {
+      setLoading(true);
+      const res = await axios.get(
+        `http://localhost:5501/api/blog?page=${pageNumber}&limit=9
+      ${
+          search ? `&search=${encodeURIComponent(search)}` : ""
+        }`
+      );
 
-      text: "Increased Productivity and Operational Efficiency: How Technology is Changing ",
-      date: "2050/01/05",
-    },
-    {
-      cardId: 4,
-      image: aimage4,
-      author: {
-        aname: "Ernie Smith",
-        aimage: AuthorImage4,
-      },
+      const data: CardType[] = res.data.data || [];
 
-      text: "Data-Driven Decision Making: How Technology is Changing ",
-      date: "2030/01/05",
-    },
-    {
-      cardId: 5,
-      image: aimage5,
-      author: {
-        aname: "Eric Smith",
-        aimage: AuthorImage5,
-      },
+      // Update cards state
+      setCards((prev) => (pageNumber === 1 ? data : [...prev, ...data]));
 
-      text: "Improved Collaboration: How Technology is Changing ",
-      date: "2020/01/05",
-    },
-    {
-      cardId: 6,
-      image: aimage6,
-      author: {
-        aname: "Tracey Wilson",
-        aimage: AuthorImage1,
-      },
+      // Update total pages
+      setTotalPage(res.data.pagination?.totalPage || 1);
 
-      text: "Transformed Learning and Development: How Technology is Changing ",
-      date: "20/01/05",
-    },
-    {
-      cardId: 7,
-      image: aimage7,
-      author: {
-        aname: "Jason Francisco",
-        aimage: AuthorImage2,
-      },
+      // Scroll to blog section on first page load or new search
+      if (pageNumber === 1 && data.length > 0) {
+        const blogSection = document.getElementById("blog-section");
+        if (blogSection)
+          blogSection.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    } catch (error) {
+      console.error("Error fetching blogs:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-      text: "Reshaped Job Roles and Skill Requirements: How Technology is Changing ",
-      date: "2045/01/05",
-    },
-    {
-      cardId: 8,
-      image: aimage8,
-      author: {
-        aname: "Elizabeth Slavin",
-        aimage: AuthorImage3,
-      },
+  // Reset cards and page when search changes
+  useEffect(() => {
+    setCards([]);
+    setPage(1);
+  }, [search]);
 
-      text: "Optimized Resource and Cost Management: How Technology is Changing ",
-      date: "2040/01/05",
-    },
-    {
-      cardId: 9,
-      image: aimage9,
-      author: {
-        aname: "Ernie Smith",
-        aimage: AuthorImage4,
-      },
+  // Fetch blogs whenever page or search changes
+  useEffect(() => {
+    fetchBlogs(page);
+  }, [page, search]);
 
-      text: "Heightened Cybersecurity Needs: How Technology is Changing ",
-      date: "2050/01/05",
-    },
-  ];
+  // Load more blogs
+  const loadMore = () => {
+    if (page < totalPage) setPage((prev) => prev + 1);
+  };
+
   return (
     <div>
-      <HeroSection />
-      <BlogList cards={cards} />
+      {!search && <HeroSection  />}
+
+      <section id="blog-section" className="mt-10">
+        <BlogList
+          cards={cards}
+          loadMore={loadMore}
+          loading={loading}
+          hasMore={page < totalPage}
+        />
+      </section>
     </div>
   );
 };

@@ -1,18 +1,41 @@
 @import "tailwindcss";
+@tailwind utilities;
 
-@theme{
-  --font-work-sans: 'Work Sans', sans-serif;
+@font-face {
+  font-family: "krisha";
+  src: url("/fonts/elora-two.woff2") format("woff2");
 }
+
+@font-face {
+  font-family: "krisha-secondary";
+  src: url("/fonts/elora.woff2") format("woff2");
+}
+
+@theme {
+  --font-primary: "krisha";
+  --font-secondary: "krisha-secondary";
+}
+
 body {
-  margin: 0 auto;
-  padding: 0;
   width: 100%;
   overflow-x: hidden;
-  max-width: 1440px;
-  font-family:  'Work Sans', sans-serif;
+  font-family: "krisha", sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+}
+
+.text-linear {
+  --tc-linear-1: linear-gradient(90deg, #e64284, #ff623b);
+  background: var(--tc-linear-1);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.container {
+  padding-left: 20px;
+  padding-right: 20px;
 }

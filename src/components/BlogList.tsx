@@ -1,16 +1,34 @@
 import Card from "./Card";
 import type { CardType } from "../types/card";
 
-const BlogList = ({ cards }: { cards: CardType[] }) => {
+type BlogListProps = {
+  cards: CardType[];
+  loadMore: () => void;
+  hasMore: boolean;
+  loading: boolean;
+};
+const BlogList = ({ cards, loadMore, hasMore, loading }: BlogListProps) => {
   return (
-    <section className="grid grid-cols-3 gap-1">
-      {cards.map((blog, index) => (
-        <Card key={index} blog={blog} />
+    <section className="grid md:grid-cols-3 gap-1">
+      {cards.map((blog) => (
+        <Card key={blog.id} blog={blog} />
       ))}
 
-      <button className="border w-[123px] h-12 text-center col-span-3 justify-self-center">
-        Load More
-      </button>
+      {hasMore && (
+        <div className="col-span-3 flex justify-center">
+          <button
+            onClick={loadMore}
+            disabled={loading}
+            className="px-4 py-2 text-black rounded hover:bg-blue-200 disabled:opacity-50"
+          >
+            {loading ? "Loading..." : (
+              <button className="border border-gray-200 rounded-xl p-2">
+                Load More
+              </button>
+            )}
+          </button>
+        </div>
+      )}
     </section>
   );
 };
