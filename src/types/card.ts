@@ -1,9 +1,9 @@
 import type { AuthorType } from "./author";
 
-export interface CardType{
+export type CardType = {
+  cardId: number;
   image: string;
-  title: string;
   text: string;
   date: string;
-  author: AuthorType
-}
+  author: AuthorType;
+};

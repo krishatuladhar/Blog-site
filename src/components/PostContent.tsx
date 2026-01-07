@@ -2,11 +2,14 @@ import ReviewerImg from "../assets/single-posts/reviewer.png";
 import homeImg from "../assets/single-posts/fimage.png";
 import postImage from "../assets/single-posts/post-image.png";
 
+
 const PostContent = () => {
   return (
-    <article className="flex flex-col m-15 mt-5">
+
+    <article className=" flex flex-col m-15 mt-5">
+   
       <div>
-        <span className="text-[14px] bg-[#4B6BFB] rounded-md p-2 ">
+        <span className="text-[14px] bg-[#4B6BFB] rounded-md p-2 text-white">
           Technology
         </span>
 
@@ -20,7 +23,7 @@ const PostContent = () => {
         </div>
       </div>
       <img src={homeImg} alt="Home Image" className="mt-5" />
-      <div className="font-serif text-2xl mt-6 space-y-9">
+      <section className="font-serif text-xl md:text-2xl mt-6 space-y-9">
         <p>
           Traveling is an enriching experience that opens up new horizons,
           exposes us to different cultures, and creates memories that last a
@@ -69,8 +72,8 @@ const PostContent = () => {
           lectus magna fringilla. Nec ullamcorper sit amet risus nullam eget
           felis. Tincidunt arcu non sodales neque sodales ut etiam sit amet.
         </p>
-      </div>
-      <div>
+      </section>
+      <section>
         <blockquote className="border border-gray-500 bg-[#F6F6F7] pl-4 italic font-serif text-[24px] text-gray-700 my-6 p-10 gap-8">
           “ Traveling can expose you to new environments and potential health
           risks, so it's crucial to take precautions to stay safe and healthy. ”
@@ -81,8 +84,8 @@ const PostContent = () => {
           <span>You can place ads</span>
           <p>750x100</p>
         </div>
-      </div>
-      <div className="font-serif text-2xl mt-6 space-y-9 ">
+      </section>
+      <section className="font-serif text-xl md:text-2xl mt-6 space-y-9 ">
         <h3 className="font-bold font-sans text-[24px]">
           Pack Lightly and Smartly
         </h3>
@@ -131,7 +134,7 @@ const PostContent = () => {
           lifetime. So pack your bags, embrace the adventure, and enjoy the
           ride.
         </p>
-      </div>
+      </section>
     </article>
   );
 };

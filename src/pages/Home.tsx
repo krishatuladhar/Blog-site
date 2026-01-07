@@ -1,4 +1,3 @@
-
 import HeroSection from "../components/HeroSection";
 import type { CardType } from "../types/card";
 import aimage1 from "../assets/cards/image1.png";
@@ -16,98 +15,106 @@ import AuthorImage3 from "../assets/authors/author3.png";
 import AuthorImage4 from "../assets/authors/author4.png";
 import AuthorImage5 from "../assets/authors/author5.png";
 import BlogList from "../components/BlogList";
-import Footer from "../components/Footer";
 
 const Home = () => {
   const cards: CardType[] = [
     {
+      cardId: 1,
       image: aimage1,
       author: {
         aname: "Tracey Wilson",
         aimage: AuthorImage1,
       },
-      title: "Enhanced and Expedited Communication",
-      text: " Traditional communication methods like physical mail and standard phone calls have been replaced by instant, integrated platforms",
+
+      text: "Enhanced and Expedited Communication: How Technology is Changing ",
       date: "2010/01/05",
     },
     {
+      cardId: 2,
       image: aimage2,
       author: {
         aname: "Jason Francisco",
         aimage: AuthorImage2,
       },
-      title: "Enabled Remote and Hybrid Work",
-      text: "The advent of cloud computing, high-speed internet, and mobile devices has untethered employees from physical offices.",
+
+      text: "Enabled Remote and HybrcardId Work: How Technology is Changing ",
       date: "2080/01/05",
     },
     {
+      cardId: 3,
       image: aimage3,
       author: {
         aname: "Elizabeth Slavin",
         aimage: AuthorImage3,
       },
-      title: "Increased Productivity and Operational Efficiency",
-      text: "Routine and time-consuming manual tasks are increasingly handled by automation and artificial intelligence (AI).",
+
+      text: "Increased Productivity and Operational Efficiency: How Technology is Changing ",
       date: "2050/01/05",
     },
     {
+      cardId: 4,
       image: aimage4,
       author: {
         aname: "Ernie Smith",
         aimage: AuthorImage4,
       },
-      title: "Data-Driven Decision Making",
-      text: "Businesses now have access to vast amounts of data and advanced analytics tools, allowing for real-time performance tracking.",
+
+      text: "Data-Driven Decision Making: How Technology is Changing ",
       date: "2030/01/05",
     },
     {
+      cardId: 5,
       image: aimage5,
       author: {
         aname: "Eric Smith",
         aimage: AuthorImage5,
       },
-      title: "Improved Collaboration",
-      text: "Cloud-based collaboration tools (e.g., Google Workspace, Asana) allow multiple users to share and work on documents.",
+
+      text: "Improved Collaboration: How Technology is Changing ",
       date: "2020/01/05",
     },
     {
+      cardId: 6,
       image: aimage6,
       author: {
         aname: "Tracey Wilson",
         aimage: AuthorImage1,
       },
-      title: "Transformed Learning and Development",
-      text: "Employee training has evolved with the rise of e-learning platforms, webinars, a57nd even immersive technologies.",
+
+      text: "Transformed Learning and Development: How Technology is Changing ",
       date: "20/01/05",
     },
     {
+      cardId: 7,
       image: aimage7,
       author: {
         aname: "Jason Francisco",
         aimage: AuthorImage2,
       },
-      title: "Reshaped Job Roles and Skill Requirements",
-      text: "While some jobs involving routine tasks are being displaced by automation, new roles in data analysis, AI management.",
+
+      text: "Reshaped Job Roles and Skill Requirements: How Technology is Changing ",
       date: "2045/01/05",
     },
     {
+      cardId: 8,
       image: aimage8,
       author: {
         aname: "Elizabeth Slavin",
         aimage: AuthorImage3,
       },
-      title: "Optimized Resource and Cost Management",
-      text: "Technology allows businesses to optimize resources effectively, from using building utilization data to reconfigure office space.",
+
+      text: "Optimized Resource and Cost Management: How Technology is Changing ",
       date: "2040/01/05",
     },
     {
+      cardId: 9,
       image: aimage9,
       author: {
         aname: "Ernie Smith",
         aimage: AuthorImage4,
       },
-      title: "Heightened Cybersecurity Needs",
-      text: "The increased reliance on interconnected digital systems has expanded the potential for data breaches and cyber threats.",
+
+      text: "Heightened Cybersecurity Needs: How Technology is Changing ",
       date: "2050/01/05",
     },
   ];
