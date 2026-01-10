@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 const api = axios.create({
-  baseURL: `${BACKEND_URL}/api/v1`,
+  baseURL: `${BACKEND_URL}/api`,
 });
 
 // Attach token automatically to all requests

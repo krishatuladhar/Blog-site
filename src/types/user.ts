@@ -1,7 +1,3 @@
-export interface AuthorType {
-  aname: string;
-  aimage: string;
-}
 export enum Role {
   USER = "user",
   AUTHOR = "author",

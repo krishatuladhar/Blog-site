@@ -5,7 +5,6 @@ import { z } from "zod";
 import axios from "axios";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "../validations/formValidationSchema";
-import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import api from "../utils/api";
 
