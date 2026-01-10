@@ -9,7 +9,7 @@ const RootLayout = () => {
   return (
     <AuthProvider>
       <ToastContainer position="top-right" autoClose={3000} />
-      <main className="font-work-sans">
+      <main className="relative">
         <Navbar />
         <Outlet />
         <Footer />

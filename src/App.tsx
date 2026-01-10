@@ -20,9 +20,9 @@ const router = createBrowserRouter([
       {
         path: "/single-post/:slug",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <BlogPost />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       { path: "/register", element: <Register /> },
@@ -30,35 +30,35 @@ const router = createBrowserRouter([
       {
         path: "/add-post",
         element: (
-          <ProtectedRoute>
-            {" "}
+          // <ProtectedRoute>
+            // {" "}
             <AddPost />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/profile",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <Profile />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/my-blogs",
         element: (
-          <ProtectedRoute>
+          // <ProtectedRoute>
             <MyBlogs />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
       {
         path: "/blogs/edit/:slug",
         element: (
-          <ProtectedRoute>
-            {" "}
+          // <ProtectedRoute>
+            // {" "}
             <EditPost />
-          </ProtectedRoute>
+          // </ProtectedRoute>
         ),
       },
     ],

@@ -9,7 +9,7 @@ type BlogListProps = {
 };
 const BlogList = ({ cards, loadMore, hasMore, loading }: BlogListProps) => {
   return (
-    <section className="grid md:grid-cols-3 gap-1">
+    <section className="grid md:grid-cols-3 gap-5 p-5">
       {cards.map((blog) => (
         <Card key={blog.id} blog={blog} />
       ))}

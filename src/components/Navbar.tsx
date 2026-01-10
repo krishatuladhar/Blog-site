@@ -4,7 +4,7 @@ import { useAuth } from "../providers/AuthProvider";
 import { FaCog, FaPen, FaSearch, FaUser } from "react-icons/fa";
 import { useDebounce } from "../hooks/useDebounce";
 import { useEffect, useState } from "react";
-import dropDownImage from "../assets/authors/author1.png";
+import personImage from "../assets/authors/author1.png";
 const Navbar = () => {
   const { setUser, user } = useAuth();
   const isAuthor = user?.role === "author";
@@ -67,6 +67,15 @@ const Navbar = () => {
               >
                 Blog
               </a>
+              {/* Only show Add Post if user is an author */}
+              {isAuthor && (
+                <button
+                  onClick={() => navigate("/add-post")}
+                  className="bg-pink-200 hover:bg-blue-600 text-white p-2 font-semibold rounded"
+                >
+                  Add Post
+                </button>
+              )}
             </div>
 
             {/* Right: Search + Profile (only if logged in) */}
@@ -116,16 +125,9 @@ const Navbar = () => {
                     onClick={() => setShowDropDown(!ShowDropDown)}
                   />
                   {ShowDropDown && (
-                    <div
-                      className="absolute right-0 top-12 w-72 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 overflow-hidden animate-[fadeIn_0.15s_ease-in-out]  from-blue-50 to-indigo-50"
-                    >
+                    <div className="absolute right-0 top-12 w-72 bg-white border border-gray-200 rounded-2xl shadow-xl z-50 overflow-hidden animate-[fadeIn_0.15s_ease-in-out]  from-blue-50 to-indigo-50">
                       {/* Header */}
-                      <div className="flex items-center gap-4 px-5 py-4 ">
-                        <img
-                          src={dropDownImage}
-                          alt="avatar"
-                          className="h-14 w-14 rounded-full object-cover ring-2 ring-white"
-                        />
+                      <div className="flex justify-center items-center gap-4 px-5 py-4 ">
                         <div className="flex flex-col min-w-0">
                           <span className="font-semibold text-gray-900 truncate">
                             {user?.name}
@@ -139,10 +141,10 @@ const Navbar = () => {
                       {/* Actions */}
                       <div className="flex flex-col px-3 py-2">
                         <button
-                          className="flex items-center gap-3 px-4 py-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-pink-400 transition"
+                          className="flex items-center gap-6 px-4 py-2 rounded-xl text-gray-700 hover:bg-blue-50 hover:text-pink-400 transition"
                           onClick={() => navigate("/profile")}
                         >
-                          <FaCog className="text-sm" />
+                          <FaCog className="text-sm" size={10}/>
                           <span>Profile & Settings</span>
                         </button>
 
